@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Unit 1</title>
-    <link rel="stylesheet" href="./styles/style.css">
+    <title>ToDo</title>
+    <link rel="shortcut icon" type="image/ico" href="./styles/favicon.ico" />
+    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="./styles/css/style.min.css">
 </head>
 
 <body>
-
-    <h1>ToDo List</h1>
-    <input type="text" placeholder="ToDo Name" id="ToDo-input">
-    <button>Make ToDo</button>
-    <div>Remove all</div>
-    <ul></ul>
+    <section>
+        <h1>To Do list</h1>
+        <button class="btn rmBtn">Remove all</button>
+        <input type="text" placeholder="Input task name" id="ToDo-input">
+        <button class="btn makeToDoBtn">Make ToDo</button>
+        <ul></ul>
+    </section>
 
     <script src="./scripts/script.js"></script>
 </body>
