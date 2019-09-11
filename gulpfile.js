@@ -44,11 +44,11 @@ function browserReload(done) {
 }
 
 function watchSass() {
-    gulp.watch("./styles/sass/style.sass", css_style);
+    gulp.watch("./styles/sass/**/*.sass", css_style);
 }
 
 function watchFiles() {
-    gulp.watch("./styles/sass/style.sass", css_style);
+    gulp.watch("./styles/sass/**/*.sass", css_style)
     gulp.watch("./**/*.html", browserReload);
     gulp.watch("./**/*.js", browserReload);
 }

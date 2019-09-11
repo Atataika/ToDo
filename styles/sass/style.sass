@@ -1,64 +1,62 @@
-$textColor: #fff
-$backGroundMainColor: #a5b3ef
-$backGroundColor: #559
-    
-@mixin button
-    color: $textColor
-    background-color: $backGroundColor
-    border: 0px
-    border-radius: 6px
-    height: 2em
-    &:focus
-        outline: 2px dashed $backGroundColor
+@import 'variables.sass'
+@import 'mixins.sass'
     
 body
     display: grid
     grid-template-columns: 1fr 3fr 1fr
-    grid-template-rows: repeat(4, 1fr)
     text-align: center
 
     section
         grid-column: 2 / 3
         margin-top: 50px
         padding: 3em 0
-        background-color: $backGroundMainColor
+        background-color: $backGroundColor
         border-radius: 24px
 
         h1
-            grid-row: 1 / 2
             font-family: Courier New, Courier, monospace
             font-size: 38px
             color: $textColor
 
-        .rmBtn
+        .remove-all-btn
             @include button
 
-        #ToDo-input
+        #to-do-input
+            font-size: 26px
             margin: 0 30px
-            width: 370px
-            height: 1.7em
+            width: 50%
+            height: 1.3em
             border: 0px
-            border-bottom: 2px dashed $backGroundColor
-            border-radius: 3px
+            border-bottom: 2px dashed lighten($mainColor, 30%)
+            border-radius: 5px
             &:focus
-                outline: 2px dashed $backGroundColor
+                outline: 2px dashed $mainColor
 
-        .makeToDoBtn
+        .make-to-do-btn
             @include button
 
         ul
             padding: 0px
-            margin: 40px 150px 0
-            // border: 2px solid black
+            margin: 40px 150px 30px
             
         li
-            margin: 20px
-            padding: 5px
-            list-style: none
-            border-radius: 13px
             font-size: 24px
-            &:nth-child(even)
-                background-color: $backGroundColor
+            padding: 8px 0px
+            list-style: none
+            word-wrap: break-word
+            
+            &:nth-child(odd)
+                background-color: $mainColor
+            
+            &:first-child
+                border-top-left-radius: 30px
+                border-top-right-radius: 30px
+            
+            &:last-child
+                border-bottom-left-radius: 30px
+                border-bottom-right-radius: 30px
 
         .checked
             text-decoration-line: line-through
+
+@import 'media.sass'

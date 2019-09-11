@@ -1,0 +1,15 @@
+@mixin button
+    color: $textColor
+    background-color: $mainColor
+    font-size: 20px
+    padding: 13px
+    border: 0px
+    border-radius: 8px
+    transition: .4s
+
+    &:hover
+        background-color: darken($mainColor, 13%)
+
+    &:focus
+        outline: 2px dashed $mainColor
+        background-color: darken($mainColor, 10%)

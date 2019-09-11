@@ -1,19 +1,28 @@
 'use strict'
-const button = document.querySelector(".makeToDoBtn"),
-    rmButton = document.querySelector(".rmBtn");
-let taskCounter,
-    arr;
-if (JSON.parse(localStorage.getItem('undoneTasks')) === null) {
-    arr = [];
-    taskCounter = arr.length;
-} else {
-    arr = JSON.parse(localStorage.getItem('undoneTasks'));
-    taskCounter = arr.length;
-}
-render();
+const rmAllBtn = document.querySelector(".remove-all-btn"),
+    makeToDoBtn = document.querySelector(".make-to-do-btn"),
+    localStorageTasks = JSON.parse(localStorage.getItem("undoneTasks"));
+let taskCounter, listItem, cacheArray;
 
-button.addEventListener("click", function () {
-    const toDoInput = document.getElementById("ToDo-input").value,
+if (localStorageTasks === null) {
+    cacheArray = [];
+    taskCounter = 0;
+} else {
+    cacheArray = localStorageTasks;
+    taskCounter = cacheArray.length;
+}
+
+for (let i = 0; i < cacheArray.length; i++) {
+    listItem = document.createElement("li");
+    listItem.innerHTML = localStorageTasks[i];
+    document.querySelector("ul").append(listItem);
+
+    document.getElementById(`delete-${i}`).onclick = deleteTask;
+    document.getElementById(`checkbox-${i}`).onchange = checkTask;
+}
+
+makeToDoBtn.addEventListener("click", function () {
+    const toDoInput = document.getElementById("to-do-input").value,
         rmElemBtn = `<span id="delete-${taskCounter}">X</span>`,
         radioInput = `<input type="checkbox" id="checkbox-${taskCounter}">`,
         listItem = document.createElement('li');
@@ -21,45 +30,40 @@ button.addEventListener("click", function () {
     if (toDoInput === "") {
         return alert("Input must not be empty");
     }
-    
+
     listItem.innerHTML = `<label>${radioInput}<span>${toDoInput}</span></label> ${rmElemBtn}`;
-    arr.push(listItem.innerHTML);
-    localStorage.setItem(`undoneTasks`, JSON.stringify(arr));
-    document.querySelector("input").value = "";
+    document.querySelector("ul").append(listItem);
+
+    cacheArray.push(listItem.innerHTML);
+    localStorage.setItem("undoneTasks", JSON.stringify(cacheArray));
+
+    document.getElementById(`delete-${taskCounter}`).onclick = deleteTask;
+    document.getElementById(`checkbox-${taskCounter}`).onchange = checkTask;
+
+    document.getElementById("to-do-input").value = "";
     taskCounter++;
-    render();
 }, false);
 
-function render() {
-    let listItem = '';
-    const ul = document.createElement("ul");
-    document.querySelector("ul").remove();
-    document.querySelector("section").append(ul);
+function deleteTask() {
+    // let a = JSON.parse(localStorage.getItem('undoneTasks'));
+    // a[???] = undefined;
+    // a.filter(key => key !== undefined);
+    this.parentElement.remove();
+}
 
-    for (let i = 0; i < arr.length; i++) {
-        let tmpArr = JSON.parse(localStorage.getItem('undoneTasks'));
-        listItem = document.createElement('li');
-        listItem.innerHTML = tmpArr[i];
-        ul.append(listItem);
-
-        document.getElementById(`delete-${i}`).onclick = function () {
-            this.parentNode.remove();
-        }
-
-        document.getElementById(`checkbox-${i}`).onchange = function () {
-            if (this.checked) {
-                this.parentNode.className = 'checked';
-            } else {
-                this.parentNode.className = 'unchecked';
-            }
-        }
+function checkTask() {
+    if (this.checked) {
+        this.parentElement.className = 'checked';
+    } else {
+        this.parentElement.className = 'unchecked';
     }
 }
 
-rmButton.onclick = () => {
+rmAllBtn.onclick = () => {
+    const ul = document.createElement("ul");
+    document.querySelector("ul").remove();
+    document.querySelector("section").append(ul);
     taskCounter = 0;
     localStorage.clear();
-    arr = [];
-
-    render();
+    cacheArray = [];
 };
