@@ -37,23 +37,23 @@ function makeToDo() {
     ul.append(listItem);
 }
 
-function listListener(event) {
-    if (event.target.nodeName === "INPUT") {
-        chengeTaskState(event);
-    } else if (event.target.nodeName === "SPAN") {
-        deleteTask(event);
+function listListener(e) {
+    if (e.target.nodeName === "INPUT") {
+        chengeTaskState(e);
+    } else if (e.target.nodeName === "SPAN") {
+        deleteTask(e);
     }
 }
 
 ///// Баг при удалении завершенных тасков
 ///// Баг при удалении одноименных тасков
 function deleteTask(e) {
-    let tmpArray = JSON.parse(localStorage.getItem("undoneTasks"));
+    let tmpArray = cacheArray;
 
-    console.log(e);
     for (let i = 0; i < tmpArray.length; i++) {
         if (e.target.parentElement.innerHTML === tmpArray[i]) {
             tmpArray[i] = undefined;
+            break
         }
     }
 

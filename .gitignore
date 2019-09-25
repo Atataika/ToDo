@@ -1,3 +1,7 @@
 node_modules
 package-lock.json
+out
+src/css
+src/js
 .vscode
+scripts
